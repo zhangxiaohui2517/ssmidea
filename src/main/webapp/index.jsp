@@ -163,7 +163,7 @@
 
                                 <c:forEach items="${biqianglist}" var="b" begin="0" end="3">
                                     <div class="item">
-                                        <a href="javascript:;"><img
+                                        <a href="selectgoodbyid.do?cid=${b.cid}"><img
                                                 src="<c:url value="/resources/static/img/${b.image}"/>"></a>
                                         <div class="title">${b.cname}</div>
                                         <div class="price">
@@ -177,7 +177,7 @@
                             <div class="item-box">
                                 <c:forEach items="${biqianglist}" var="b" begin="4" end="7">
                                     <div class="item">
-                                        <a href="javascript:;"><img
+                                        <a href="selectgoodbyid.do?cid=${b.cid}"><img
                                                 src="<c:url value="/resources/static/img/${b.image}"/>"></a>
                                         <div class="title">${b.cname}</div>
                                         <div class="price">
@@ -187,8 +187,6 @@
 
                                     </div>
                                 </c:forEach>
-
-
                             </div>
                         </div>
                     </div>

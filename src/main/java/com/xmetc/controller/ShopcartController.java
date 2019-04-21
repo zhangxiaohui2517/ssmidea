@@ -1,9 +1,6 @@
 package com.xmetc.controller;
 
-import com.xmetc.entity.Commodity;
-import com.xmetc.entity.Productcate;
-import com.xmetc.entity.Shopcart;
-import com.xmetc.entity.Xpro;
+import com.xmetc.entity.*;
 import com.xmetc.service.CommodityService;
 import com.xmetc.service.ProductcateService;
 import com.xmetc.service.ShopcartService;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +64,16 @@ public class ShopcartController {
         return i;
     }
 
+    //添加购物车
+    @RequestMapping("addshopcart")
+    @ResponseBody
+    public int addshopcart(@Param("cid") String cid, @Param("cnum") String cnum, HttpSession session) {
+        User user = (User) session.getAttribute("userinfo");
+        int uid = user.getId();
+        int i = shopcartService.addShopcart(uid,Integer.parseInt(cid),Integer.parseInt(cnum));
+        System.out.println("i=" + i);
+        return i;
+    }
 
 
 }

@@ -77,8 +77,6 @@ public class CommodityController {
     @ResponseBody
     public ModelAndView selectgoodbyname(@Param("title") String title ){
         ModelAndView mav = new ModelAndView();
-
-
         //商品类别展示
         List<Productcate> plist = productcateService.getProAll();
         Map<Integer,List<Xpro>> pmap = new HashMap<>();
@@ -94,7 +92,16 @@ public class CommodityController {
         return mav;
     }
 
-
+    //商品详情
+    @RequestMapping("selectgoodbyid")
+    @ResponseBody
+    public ModelAndView selectgoodbyid(@Param("cid") String cid ){
+        ModelAndView mav = new ModelAndView();
+        Commodity commodity = commodityService.getCommodityByCid(Integer.parseInt(cid));
+        mav.addObject("commodity",commodity);
+        mav.setViewName("details");
+        return mav;
+    }
 
 
     //id查找商品

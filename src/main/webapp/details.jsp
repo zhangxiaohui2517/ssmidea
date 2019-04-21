@@ -31,7 +31,8 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="shopcart.do">${userinfo.username}</a></div>,
+                    <div class="login"><a href="shopcart.do">${userinfo.username}</a></div>
+                    ,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                 </c:otherwise>
             </c:choose>
@@ -41,9 +42,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <div class="header">
@@ -56,7 +54,8 @@
             </h1>
             <div class="mallSearch">
                 <form action="selectgoodbyname.do" class="layui-form" novalidate>
-                    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                           class="layui-input" placeholder="请输入需要的商品">
                     <button class="layui-btn" lay-submit lay-filter="formDemo">
                         <i class="layui-icon layui-icon-search"></i>
                     </button>
@@ -91,26 +90,33 @@
         </div>
         <div class="product-intro layui-clear">
             <div class="preview-wrap">
-                <a href="javascript:;"><img src="<c:url value="/resources/static/img/details_img1.jpg"/>"></a>
+                <a href="javascript:;"><img src="<c:url value="/resources/static/img/${commodity.image}"/>"></a>
             </div>
             <div class="itemInfo-wrap">
                 <div class="itemInfo">
                     <div class="title">
-                        <h4>男女宝宝秋冬装套装0一1岁婴儿衣服潮加厚连体衣保暖冬季外出抱衣 </h4>
+                        <h4>${commodity.cname}</h4>
                         <span><i class="layui-icon layui-icon-rate-solid"></i>收藏</span>
                     </div>
                     <div class="summary">
-                        <p class="reference"><span>参考价</span> <del>￥280.00</del></p>
-                        <p class="activity"><span>活动价</span><strong class="price"><i>￥</i>99.00</strong></p>
-                        <p class="address-box"><span>送&nbsp;&nbsp;&nbsp;&nbsp;至</span><strong class="address">江西&nbsp;&nbsp;南昌&nbsp;&nbsp;东湖区</strong></p>
+                        <p class="activity"><span>单价</span><strong class="price"><i>￥</i>${commodity.price}</strong></p>
+                        <p class="address-box"><span>送&nbsp;&nbsp;&nbsp;&nbsp;至</span><strong class="address">江西&nbsp;&nbsp;南昌&nbsp;&nbsp;东湖区</strong>
+                        </p>
                     </div>
                     <div class="choose-attrs">
-                        <div class="color layui-clear"><span class="title">颜&nbsp;&nbsp;&nbsp;&nbsp;色</span> <div class="color-cont"><span class="btn">白色</span> <span class="btn active">粉丝</span></div></div>
-                        <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span><div class="number-cont"><span class="cut btn">-</span><input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="" name="" value="1"><span class="add btn">+</span></div></div>
+                        <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span>
+                            <div class="number-cont"><span class="cut btn">-</span><input
+                                    onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                                    onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                                    maxlength="4" type="" name="" value="1" id="cnum"><span class="add btn">+</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="choose-btns">
-                        <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
-                        <button class="layui-btn  layui-btn-danger car-btn"><i class="layui-icon layui-icon-cart-simple"></i>加入购物车</button>
+                        <%--<button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>--%>
+                        <button class="layui-btn  layui-btn-danger car-btn" onclick="addShopCart()"><i
+                                class="layui-icon layui-icon-cart-simple"></i>加入购物车
+                        </button>
                     </div>
                 </div>
             </div>
@@ -119,17 +125,55 @@
     </div>
 </div>
 <script type="text/javascript">
+    function addShopCart() {
+        var cid = ${commodity.cid};
+        var cnum = document.getElementById("cnum").value;
+        var url = "addshopcart.do?cid=" + cid + "&cnum=" + cnum;
+        $.ajax({
+            async: true,  //异步加载
+            type: "GET",
+            url: url,
+            success: function (data) {
+                var numstr = data;
+                if (numstr = 1) {
+                    var r = confirm("添加购物车成功，是否直接前往购物车结算");
+                    if (r == true) {
+                        window.location = "shopcart.do?id=" +${userinfo.id};
+                    } else {
+                        window.location = window.location
+                    }
+                } else {
+                    alert("添加失败")
+                }
+            }
+        });
+
+    }
+</script>
+<!-- jQuery -->
+<script src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>
+<!-- Bootstrap -->
+<script src="<c:url value="/resources/static/js/bootstrap.min.js"/>"></script>
+<!-- Placeholder -->
+<script src="<c:url value="/resources/static/js/jquery.placeholder.min.js"/>"></script>
+<!-- Waypoints -->
+<script src="<c:url value="/resources/static/js/jquery.waypoints.min.js"/>"></script>
+<!-- Main JS -->
+<script src="<c:url value="/resources/static/js/main.js"/>"></script>
+
+
+<script type="text/javascript">
     layui.config({
         base: '<c:url value="/resources/static/js/util/"/>' //你存放新模块的目录，注意，不是layui的模块目录
-    }).use(['mm','jquery'],function(){
-        var mm = layui.mm,$ = layui.$;
+    }).use(['mm', 'jquery'], function () {
+        var mm = layui.mm, $ = layui.$;
         var cur = $('.number-cont input').val();
-        $('.number-cont .btn').on('click',function(){
-            if($(this).hasClass('add')){
+        $('.number-cont .btn').on('click', function () {
+            if ($(this).hasClass('add')) {
                 cur++;
 
-            }else{
-                if(cur > 1){
+            } else {
+                if (cur > 1) {
                     cur--;
                 }
             }
