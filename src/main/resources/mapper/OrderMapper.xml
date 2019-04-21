@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmetc.dao.OrderDAO">
+
+    <select id="findOrderByOid" resultType="com.xmetc.entity.Order">
+        			select * from t_order where oid=#{oid}
+	</select>
+
+    <select id="findOrderByUid" resultType="com.xmetc.entity.Order">
+        			select * from t_order where uid=#{uid}
+	</select>
+
+    <select id="findOrderAll" resultType="com.xmetc.entity.Order">
+		select * from t_order
+	</select>
+
+    <update id="updateOrder" parameterType="com.xmetc.entity.Order">
+        update t_order
+        <set>
+            <if test ="payment!=null">
+                payment =#{payment},
+            </if>
+            <if test ="paytype!=null">
+                paytype =#{paytype},
+            </if>
+            <if test ="createtime!=null">
+                createtime =#{createtime},
+            </if>
+        </set>
+        where oid=#{oid}
+    </update>
+
+    <insert id="addOrder" parameterType="com.xmetc.entity.Order" keyProperty="oid" useGeneratedKeys="true">
+		insert into t_order(uid,payment,paytype,createtime)
+		values(#{uid},#{payment},#{paytype},#{createtime})
+	</insert>
+
+    <delete id="deleteOrder" parameterType="com.xmetc.entity.Order">
+		delete from t_order where oid=#{oid}
+	</delete>
+
+
+</mapper>

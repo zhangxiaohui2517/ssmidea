@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmetc.dao.ProductcateDAO">
+    <select id="findProById" resultType="com.xmetc.entity.Productcate">
+        			select * from t_productcate where pid=#{pid}
+	</select>
+
+    <select id="findProByName" resultType="com.xmetc.entity.Productcate" parameterType="String">
+        			select * from t_productcate where pname=#{arg0}
+	</select>
+
+    <select id="findProAll" resultType="com.xmetc.entity.Productcate">
+		select * from t_productcate
+	</select>
+
+    <update id="updateProById" parameterType="com.xmetc.entity.Productcate">
+        update t_productcate
+        <set>
+            <if test ="pname!=null">
+                pname =#{pname},
+            </if>
+        </set>
+        where pid=#{pid}
+    </update>
+
+    <insert id="addPro" parameterType="com.xmetc.entity.Productcate" keyProperty="pid" useGeneratedKeys="true">
+		insert into t_productcate(pname)
+		values(#{pname})
+	</insert>
+
+    <delete id="deleteProById" parameterType="com.xmetc.entity.Productcate">
+		delete from t_productcate where pid=#{pid}
+	</delete>
+
+
+</mapper>

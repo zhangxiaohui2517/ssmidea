@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+
+
+	<!-- 启动mvc注解扫描 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<!-- 启动spring注解扫描 -->
+	<context:component-scan base-package="com.xmetc"></context:component-scan>
+
+	<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="internalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 定义文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="5242880"></property>
+	</bean>
+
+
+	<!-- 对静态资源文件的访问 -->
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/style/bootstrap3/css/" mapping="/bootstrap3/css/**"/>
+	<mvc:resources location="/style/bootstrap3/fonts/" mapping="/bootstrap3/fonts/**"/>
+	<mvc:resources location="/style/bootstrap3/js" mapping="/bootstrap3/js"/>
+	<mvc:resources location="/style/jquery/" mapping="/jquery/"/>
+	<mvc:resources location="/style/" mapping="/**"/>
+
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/upload/" mapping="/upload/**"/>
+
+</beans>

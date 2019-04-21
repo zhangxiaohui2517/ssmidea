@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmetc.dao.XproDAO">
+    <select id="findXproByPid" resultType="com.xmetc.entity.Xpro">
+        			select * from t_xpro where pid=#{pid}
+	</select>
+
+    <select id="findXproByName" resultType="com.xmetc.entity.Xpro" parameterType="String">
+        			select * from t_xpro where xpname=#{arg0}
+	</select>
+
+    <select id="findXproAll" resultType="com.xmetc.entity.Xpro">
+		select * from t_xpro
+	</select>
+
+    <update id="updateXpro" parameterType="com.xmetc.entity.Xpro">
+        update t_xpro
+        <set>
+            <if test ="xpname!=null">
+                xpname =#{xpname},
+            </if>
+        </set>
+        where xpid=#{xpid}
+    </update>
+
+    <insert id="addXpro" parameterType="com.xmetc.entity.Xpro" keyProperty="xpid" useGeneratedKeys="true">
+		insert into t_xpro(xpname,pid)
+		values(#{xpname},#{pid})
+	</insert>
+
+    <delete id="deleteXpro" parameterType="com.xmetc.entity.Xpro">
+		delete from t_xpro where xpid=#{xpid}
+	</delete>
+
+
+</mapper>

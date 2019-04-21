@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmetc.dao.CommodityDAO">
+
+    <select id="findCommodityByOid" resultType="com.xmetc.entity.Commodity">
+        			select * from t_commodity where cid=#{cid}
+	</select>
+
+    <select id="findCommodityByName" resultType="com.xmetc.entity.Commodity">
+        			select * from t_commodity where cname like "%"#{title}"%"
+	</select>
+
+    <select id="findCommodityAll" resultType="com.xmetc.entity.Commodity">
+		select * from t_commodity
+	</select>
+
+    <select id="findCommodityByPid" resultType="com.xmetc.entity.Commodity">
+        			select * from t_commodity where xpid=#{pid}
+	</select>
+
+
+
+    <update id="updateCommodity" parameterType="com.xmetc.entity.Commodity">
+        update t_commodity
+        <set>
+            <if test ="xpid!=null">
+                xpid =#{xpid},
+            </if>
+            <if test ="name!=null">
+                name =#{name},
+            </if>
+            <if test ="image!=null">
+                image =#{image},
+            </if>
+            <if test ="detail!=null">
+                detail =#{detail},
+            </if>
+            <if test ="price!=null">
+                price =#{price},
+            </if>
+        </set>
+        where cid=#{cid}
+    </update>
+
+    <insert id="addCommodity" parameterType="com.xmetc.entity.Commodity" keyProperty="cid" useGeneratedKeys="true">
+		insert into t_commodity(xpid,cname,image,detail,price)
+		values(#{xpid},#{cname},#{image},#{detail},#{price})
+	</insert>
+
+    <delete id="deleteCommodity" parameterType="com.xmetc.entity.Commodity">
+		delete from t_commodity where cid=#{cid}
+	</delete>
+
+
+</mapper>

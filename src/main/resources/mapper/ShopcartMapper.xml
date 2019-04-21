@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmetc.dao.ShopcartDAO">
+
+    <select id="findShopcart" resultType="com.xmetc.entity.Shopcart">
+        SELECT
+	        t.sid "id",
+            t.uid "uid",
+            t.cid "cid",
+            t.cnum "cnum",
+            a.price "cprice",
+            a.cname "cname"
+        FROM
+            t_shopcart t,t_commodity a
+        WHERE t.cid = a.cid
+        AND t.uid = #{id}
+	</select>
+
+
+    <update id="updateShopcartCnum">
+        update t_shopcart
+        <set>
+            <if test="cnum!=null">
+                cnum =#{cnum}
+            </if>
+
+        </set>
+        where sid=#{sid}
+    </update>
+
+    <insert id="addShopcart">
+		insert into t_shopcart(uid,cid,cnum)
+		values(#{uid},#{cid},#{cnum})
+	</insert>
+
+    <delete id="deleteShopcartById">
+		delete from t_shopcart where sid=#{sid}
+	</delete>
+
+    <delete id="deleteShopcartByUid">
+		delete from t_shopcart where uid=#{uid}
+	</delete>
+
+</mapper>
