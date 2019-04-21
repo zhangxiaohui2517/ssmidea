@@ -54,4 +54,12 @@ public class ProducateController {
         int i = productcateService.doUpdateProById(productcate);
         return i!=0?"success":"error";
     }
+
+    //test
+    @RequestMapping("test")
+    @ResponseBody
+    public String test(@RequestBody Productcate productcate) {
+        int i = productcateService.doUpdateProById(productcate);
+        return i!=0?"success":"error";
+    }
 }
