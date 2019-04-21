@@ -35,6 +35,6 @@ public class ShopcartServiceImpl implements ShopcartService {
 
     @Override
     public int deleteShopcartByUid(int uid) {
-        return shopcartDAO.deleteShopcartById(uid);
+        return shopcartDAO.deleteShopcartByUid(uid);
     }
 }

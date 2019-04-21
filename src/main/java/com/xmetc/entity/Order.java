@@ -59,4 +59,15 @@ public class Order {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oid=" + oid +
+                ", uid=" + uid +
+                ", payment=" + payment +
+                ", paytype=" + paytype +
+                ", createtime=" + createtime +
+                '}';
+    }
 }

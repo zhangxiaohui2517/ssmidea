@@ -42,4 +42,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrderAll() {
         return orderDAO.findOrderAll();
     }
+
+    @Override
+    public int getMaxOid() {
+        return orderDAO.getMaxOid();
+    }
 }

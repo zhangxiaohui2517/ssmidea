@@ -14,6 +14,10 @@
 		select * from t_order
 	</select>
 
+    <select id="getMaxOid" resultType="Integer">
+        select Max(oid) from t_order
+    </select>
+
     <update id="updateOrder" parameterType="com.xmetc.entity.Order">
         update t_order
         <set>
@@ -31,8 +35,8 @@
     </update>
 
     <insert id="addOrder" parameterType="com.xmetc.entity.Order" keyProperty="oid" useGeneratedKeys="true">
-		insert into t_order(uid,payment,paytype,createtime)
-		values(#{uid},#{payment},#{paytype},#{createtime})
+		insert into t_order(oid,uid,payment,paytype,createtime)
+		values(#{oid},#{uid},#{payment},#{paytype},#{createtime})
 	</insert>
 
     <delete id="deleteOrder" parameterType="com.xmetc.entity.Order">

@@ -349,16 +349,45 @@
 
     <h2>确认结算金额</h2>
     <h2>&nbsp;&nbsp;</h2>
-    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+    <input type="text" name="allprice1" id="allprice1" required lay-verify="required" autocomplete="off"
            class="layui-input" value="${allprice}"  readonly="readonly">
-    <h2>&nbsp;&nbsp;</h2>
-    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+    <h2 id="tishi" style="color: red">&nbsp;&nbsp;</h2>
+    <input type="text" name="allprice2" id="allprice2" required lay-verify="required" autocomplete="off"
            class="layui-input" placeholder="${allprice}">
     <h2>&nbsp;&nbsp;</h2>
-    <button class="layui-btn">付款</button>&nbsp;&nbsp;<button class="layui-btn" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">取消</button>
+    <button class="layui-btn" onclick="jiesuan()">付款</button>&nbsp;&nbsp;<button class="layui-btn" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">取消</button>
 
 </div>
 <div id="fade" class="black_overlay"></div>
+
+<script type="text/javascript">
+
+    function jiesuan() {
+        var allprice1 =document.getElementById("allprice1").value;
+        var allprice2 =document.getElementById("allprice2").value;
+        if (parseFloat(allprice1) !=parseFloat(allprice2)){
+            document.getElementById("tishi").innerHTML = "请输入正确结算金额"
+        } else {
+            var url = "addorder.do?payment=" + allprice2
+            $.ajax({
+                async: true,  //异步加载
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    var numstr = data;
+                    if (numstr = 1) {
+                        window.location = window.location
+                    } else {
+                        alert("支付失败")
+                    }
+
+                }
+            });
+        }
+    }
+
+</script>
+
 
 <!-- jQuery -->
 <script src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>

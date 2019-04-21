@@ -12,5 +12,6 @@ public interface OrderDAO {
     Order findOrderByOid(int oid);
     List<Order> findOrderByUid(int uid);
     List<Order> findOrderAll();
+    int getMaxOid();
 
 }

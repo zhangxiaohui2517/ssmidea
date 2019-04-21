@@ -12,5 +12,6 @@ public interface OrderService {
     Order getOrderByOid(int oid);
     List<Order> getOrderByUid(int uid);
     List<Order> getOrderAll();
+    int getMaxOid();
 
 }
