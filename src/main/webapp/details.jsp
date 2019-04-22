@@ -15,7 +15,26 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
+    <script type="text/javascript">
+        function loginout() {
+            $.ajax({
+                async: true,  //异步加载
+                type: "POST",
+                url: "loginout.do",
+                success: function (data) {
+                    var numstr = data;
+                    console.log("注册结果"+numstr)
+                    if (numstr = 1) {
+                        window.location = "index.do"
 
+                    } else {
+                        alert("注册失败")
+                    }
+
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -31,14 +50,11 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="shopcart.do">${userinfo.username}</a></div>
-                    ,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
+                    <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
             </c:choose>
-
-
-            <div class="sp-cart"><a href="shopcart.do">购物车</a></div>
         </div>
     </div>
 </div>
@@ -126,28 +142,31 @@
 </div>
 <script type="text/javascript">
     function addShopCart() {
-        var cid = ${commodity.cid};
-        var cnum = document.getElementById("cnum").value;
-        var url = "addshopcart.do?cid=" + cid + "&cnum=" + cnum;
-        $.ajax({
-            async: true,  //异步加载
-            type: "GET",
-            url: url,
-            success: function (data) {
-                var numstr = data;
-                if (numstr = 1) {
-                    var r = confirm("添加购物车成功，是否直接前往购物车结算");
-                    if (r == true) {
-                        window.location = "shopcart.do?id=" +${userinfo.id};
+        if (${userinfo == null}) {
+            alert("请先登录")
+        } else {
+            var cid = ${commodity.cid};
+            var cnum = document.getElementById("cnum").value;
+            var url = "addshopcart.do?cid=" + cid + "&cnum=" + cnum;
+            $.ajax({
+                async: true,  //异步加载
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    var numstr = data;
+                    if (numstr = 1) {
+                        var r = confirm("添加购物车成功，是否直接前往购物车结算");
+                        if (r == true) {
+                            window.location = "shopcart.do?id=${userinfo.id}";
+                        } else {
+                            window.location = window.location
+                        }
                     } else {
-                        window.location = window.location
+                        alert("添加失败")
                     }
-                } else {
-                    alert("添加失败")
                 }
-            }
-        });
-
+            });
+        }
     }
 </script>
 <!-- jQuery -->

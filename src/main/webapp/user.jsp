@@ -27,6 +27,145 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
+    <style>
+
+        #headimg {
+            width: 160px;
+            height: 160px;
+            margin: 5px;
+            margin-left: 10px;
+            border-radius: 80px;
+        }
+
+        #img {
+            width: 162px;
+            height: 162px;
+            border-radius: 80px;
+            border: red solid 1px;
+        }
+
+        #showimg {
+            width: 162px;
+            height: 162px;
+            border-radius: 80px;
+            border: red solid 1px;
+        }
+
+        #update {
+            display: none;
+        }
+
+        #head {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            padding: 0px;
+            width: 160px;
+            height: 160px;
+            border-radius: 80px;
+            border: red solid 1px;
+            background: #4e4a4a
+        }
+
+        #head input {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            padding: 50px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+
+        #head span {
+            position: absolute;
+            left: 35px;
+            top: 40px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var checknameV = false;
+        var checkpassV = false;
+
+        function check() {
+            if (checknameV && checkpassV) {
+                reg()
+            } else {
+                alert("请完善注册信息")
+            }
+        }
+
+        function checkname() {
+            var username = document.getElementById("name").value;
+            $.ajax({
+                async: true,  //异步加载
+                data: username, //参数
+                type: "POST",
+                url: "checkname.do",
+                success: function (data) {
+                    var numstr = data;
+                    if (numstr >= 1) {
+                        document.getElementById("namemsg").style.color = "red"
+                        document.getElementById("namemsg").innerHTML = "用户名已存在";
+                        document.getElementById("btn").disabled = "disabled";
+                        checknameV = false;
+                    } else {
+                        document.getElementById("namemsg").style.color = "green"
+                        document.getElementById("namemsg").innerHTML = "用户名可用";
+                        checknameV = true
+                    }
+                }
+            });
+        }
+
+        function checkpass() {
+            var password = document.getElementById("password").value;
+            var checkpassword = document.getElementById("re-password").value;
+            if (password == checkpassword) {
+                checkpassV = true
+            } else {
+                document.getElementById("passmsg").style.color = "red"
+                document.getElementById("passmsg").innerHTML = "两次密码输入不一致";
+                checkpassV = false
+            }
+        }
+
+        function reg() {
+            var username = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var user = {"username": username, "email": email, "password": password}
+            $.ajax({
+                async: true,  //异步加载
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user), //参数
+                type: "POST",
+                url: "register.do",
+                success: function (data) {
+                    var numstr = data;
+                    console.log("注册结果" + numstr)
+                    if (numstr >= 1) {
+                        alert("注册成功")
+                        window.location = "login.jsp"
+                    } else {
+                        alert("注册失败")
+                    }
+                }
+            });
+        }
+
+        function show1(f) {
+            document.getElementById("span1").style.display = "none";
+            var rd = new FileReader(); //创建文件读取对象
+            var files = f.files[0]; //获取file组件中的文件
+            rd.readAsDataURL(files); //文件读取装换为base64类型
+            rd.onloadend = function(e) {
+                //加载完毕之后获取结果赋值给img
+                document.getElementById("showimg").src = this.result;
+            }
+        }
+    </script>
     <script type="text/javascript">
         function loginout() {
             $.ajax({
@@ -46,76 +185,6 @@
                 }
             });
         }
-    </script>
-
-    <script type="text/javascript">
-        var checknameV = false;
-        var checkpassV = false;
-        function check() {
-            if (checknameV && checkpassV){
-                reg()
-            } else {
-                alert("请完善注册信息")
-            }
-        }
-        function checkname() {
-            var username = document.getElementById("name").value;
-            $.ajax({
-                async: true,  //异步加载
-                data: username, //参数
-                type: "POST",
-                url: "checkname.do",
-                success: function (data) {
-                    var numstr = data;
-                    if (numstr >= 1) {
-                        document.getElementById("namemsg").style.color = "red"
-                        document.getElementById("namemsg").innerHTML = "用户名已存在";
-                        document.getElementById("btn").disabled = "disabled";
-                        checknameV = false;
-                    } else {
-                        document.getElementById("namemsg").style.color = "green"
-                        document.getElementById("namemsg").innerHTML = "用户名可用";
-                        checknameV =true
-                    }
-                }
-            });
-        }
-        function checkpass() {
-            var password = document.getElementById("password").value;
-            var checkpassword = document.getElementById("re-password").value;
-            if (password == checkpassword){
-                checkpassV = true
-            } else {
-                document.getElementById("passmsg").style.color = "red"
-                document.getElementById("passmsg").innerHTML = "两次密码输入不一致";
-                checkpassV =false
-            }
-        }
-        function reg() {
-            var username = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var user = {"username":username,"email":email,"password":password}
-            $.ajax({
-                async: true,  //异步加载
-                contentType : "application/json;charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(user), //参数
-                type: "POST",
-                url: "register.do",
-                success: function (data) {
-                    var numstr = data;
-                    console.log("注册结果"+numstr)
-                    if (numstr >= 1) {
-                        alert("注册成功")
-                        window.location = "login.jsp"
-                    } else {
-                        alert("注册失败")
-                    }
-                }
-            });
-        }
-
     </script>
 
 </head>
@@ -139,6 +208,8 @@
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
             </c:choose>
+
+
         </div>
     </div>
 </div>
@@ -181,45 +252,61 @@
         </div>
     </div>
 
-    <div class="row" style="padding: 80px">
-        <div class="col-md-4 col-md-offset-4">
+    <div class="row" style="padding: 80px;">
+        <div class="col-md-4 col-md-offset-4" style="margin-left: 0%;float: left">
 
 
             <!-- Start Sign In Form -->
-            <form id="form1" onsubmit="return false" action="##" class="fh5co-form animate-box"
+            <form id="form1" action="updateuserinfo.do" method="post" enctype="multipart/form-data" class="fh5co-form animate-box"
                   data-animate-effect="fadeIn">
-                <h2>注册</h2>
+                <h2>个人信息</h2>
+                <div id="headimg">
+                    <div class="btn btn-success fileinput-button" id="head">
+                        <span id="span1">点击上传头像</span> <img src="<c:url value="${userinfo.hphoto}"/>" id="showimg" /> <input
+                            type="file" id="book-file" onchange="show1(this)" name="pictureFile"/>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="name" class="sr-only">用户名</label>
-                    <input type="text" class="form-control" id="name" placeholder="输入用户名" autocomplete="off"
-                           name="username" onblur="checkname()">
+                    <p>用户名：</p><input type="text" class="form-control" id="name" placeholder="输入用户名" autocomplete="off"
+                           name="username" onblur="checkname()" value="${userinfo.username}">
                     <span id="namemsg" style="color:red"></span>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
+                    <p>邮  箱：</p><label for="email" class="sr-only">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="输入Email" autocomplete="off"
-                           name="email">
+                           name="email" value="${userinfo.email}">
                 </div>
                 <div class="form-group">
-                    <label for="password" class="sr-only">密码</label>
-                    <input type="password" class="form-control" id="password" placeholder="设置密码" autocomplete="off"
-                           name="password">
+                    <p>电  话：</p><label for="name" class="sr-only">tel</label>
+                    <input type="text" class="form-control" id="tel" placeholder="输入手机号" autocomplete="off"
+                           name="tel" value="${userinfo.tel}">
                 </div>
                 <div class="form-group">
-                    <label for="re-password" class="sr-only">确认密码</label>
-                    <input type="password" class="form-control" id="re-password" placeholder="确认密码"
-                           autocomplete="off" onblur="checkpass()">
-                    <span id="passmsg" style="color:red"></span>
+                    <p>生  日：</p><label for="email" class="sr-only">tel</label>
+                    <input type="date" class="form-control" id="birth" placeholder="选择生日" autocomplete="off"
+                           name="birth" value="${userinfo.birth}">
+                </div>
+                <%--<div class="form-group">--%>
+                <%--<label for="password" class="sr-only">密码</label>--%>
+                <%--<input type="password" class="form-control" id="password" placeholder="设置密码" autocomplete="off"--%>
+                <%--name="password">--%>
+                <%--</div>--%>
+                <%--<div class="form-group">--%>
+                <%--<label for="re-password" class="sr-only">确认密码</label>--%>
+                <%--<input type="password" class="form-control" id="re-password" placeholder="确认密码"--%>
+                <%--autocomplete="off" onblur="checkpass()">--%>
+                <%--<span id="passmsg" style="color:red"></span>--%>
+                <%--</div>--%>
+                <div class="form-group">
+                    <p><a href="login.jsp">查看个人订单</a></p>
                 </div>
                 <div class="form-group">
-                    <p>已有账号? <a href="login.jsp">点击登录</a></p>
-                </div>
-                <div class="form-group">
-                    <input type="button" value="注册" onclick="check()" class="btn btn-primary">
+                    <input type="submit" value="修改" class="btn btn-primary">
                 </div>
             </form>
             <!-- END Sign In Form -->
-
         </div>
     </div>
 

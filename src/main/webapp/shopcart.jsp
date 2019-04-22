@@ -97,7 +97,26 @@
         }
     </style>
 
+    <script type="text/javascript">
+        function loginout() {
+            $.ajax({
+                async: true,  //异步加载
+                type: "POST",
+                url: "loginout.do",
+                success: function (data) {
+                    var numstr = data;
+                    console.log("注册结果"+numstr)
+                    if (numstr = 1) {
+                        window.location = "index.do"
 
+                    } else {
+                        alert("注册失败")
+                    }
+
+                }
+            });
+        }
+    </script>
 
 </head>
 
@@ -115,14 +134,11 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="shopcart.do">${userinfo.username}</a></div>
-                    ,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
+                    <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
             </c:choose>
-
-
-            <div class="sp-cart"><a href="shopcart.do">购物车</a></div>
         </div>
     </div>
 </div>

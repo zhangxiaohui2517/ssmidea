@@ -197,9 +197,9 @@ public class UserController {
         return "login";
 
     }
-
-    @RequestMapping("update")
-    public String update(HttpServletRequest request, User user, MultipartFile pictureFile) throws IOException {
+*/
+    @RequestMapping("updateuserinfo")
+    public String update(HttpServletRequest request, User user, MultipartFile pictureFile,HttpSession session) throws IOException {
 
         if (pictureFile != null) {//使用UUID给图片重命名，并去掉四个“-”
             String name = UUID.randomUUID().toString().replaceAll("-", "");
@@ -211,20 +211,18 @@ public class UserController {
             //以绝对路径保存重名命后的图片
             pictureFile.transferTo(new File(url + "/" + name + "." + ext));
             //把图片存储路径保存到数据库
-            int id = Integer.parseInt(request.getParameter("id"));
-            //User user1 =userService.getUserById(id);
-            System.out.println("1,1" + id);
-            user.setId(id);
-            user.setPhoto("upload/" + name + "." + ext);
+            User user1 = (User) session.getAttribute("userinfo");
+            user.setId(user1.getId());
+            user.setHphoto("upload/" + name + "." + ext);
         }
 
         int i = userService.doUpdateUserById(user);
         System.out.println(i);
-        String path = "redirect:/login.do?username=" + user.getUsername() + "&password=" + user.getPassword();
-        return path;
+        session.setAttribute("userinfo",user);
+        return "user";
 
 
     }
 
-*/
+
 }

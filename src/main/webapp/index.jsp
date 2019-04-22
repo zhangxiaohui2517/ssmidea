@@ -62,7 +62,7 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="shopcart.do">${userinfo.username}</a></div>,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>

@@ -69,6 +69,9 @@ public class ShopcartController {
     @ResponseBody
     public int addshopcart(@Param("cid") String cid, @Param("cnum") String cnum, HttpSession session) {
         User user = (User) session.getAttribute("userinfo");
+        if (user == null){
+            return 0;
+        }
         int uid = user.getId();
         int i = shopcartService.addShopcart(uid,Integer.parseInt(cid),Integer.parseInt(cnum));
         System.out.println("i=" + i);
