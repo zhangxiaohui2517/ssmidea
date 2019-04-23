@@ -1,9 +1,6 @@
 package com.xmetc.controller;
 
-import com.xmetc.entity.Order;
-import com.xmetc.entity.OrderInfo;
-import com.xmetc.entity.Shopcart;
-import com.xmetc.entity.User;
+import com.xmetc.entity.*;
 import com.xmetc.service.OrderInfoService;
 import com.xmetc.service.OrderService;
 import com.xmetc.service.ShopcartService;
@@ -13,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class OrderController {
@@ -116,4 +116,24 @@ public class OrderController {
         int i = orderService.doUpdateOrder(order);
         return i != 0 ? "success" : "error";
     }
+
+    //查找用户订单
+    //查找所有商品列表
+    @RequestMapping("orderbyuid")
+    @ResponseBody
+    public ModelAndView orderbyuid(HttpSession session){
+        ModelAndView mav = new ModelAndView();
+        User user = (User) session.getAttribute("userinfo");
+        List<Order> orders = orderService.getOrderByUid(user.getId());
+        Map<Integer,List<OrderInfoUid>> orderinfos = new HashMap<>();
+        for (Order o: orders) {
+            List<OrderInfoUid> orderInfoUid = orderInfoService.findOrderInfoAll(o.getOid());
+            orderinfos.put(o.getOid(),orderInfoUid);
+        }
+        mav.addObject("orders",orders);
+        mav.addObject("orderinfos",orderinfos);
+        mav.setViewName("user");
+        return mav;
+    }
+
 }

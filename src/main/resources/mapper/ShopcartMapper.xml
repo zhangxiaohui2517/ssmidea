@@ -10,6 +10,7 @@
             t.cnum "cnum",
             a.price "cprice",
             a.cname "cname"
+
         FROM
             t_shopcart t,t_commodity a
         WHERE t.cid = a.cid

@@ -29,6 +29,36 @@
 
     <style>
 
+        .black_overlay {
+            display: none;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=88);
+        }
+
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 7%;
+            left: 120%;
+            width: 900px;
+            height: 852px;
+            padding: 20px;
+            border: 10px solid beige;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+            overflow-y: auto
+        }
+
+
         #headimg {
             width: 160px;
             height: 160px;
@@ -160,7 +190,7 @@
             var rd = new FileReader(); //创建文件读取对象
             var files = f.files[0]; //获取file组件中的文件
             rd.readAsDataURL(files); //文件读取装换为base64类型
-            rd.onloadend = function(e) {
+            rd.onloadend = function (e) {
                 //加载完毕之后获取结果赋值给img
                 document.getElementById("showimg").src = this.result;
             }
@@ -174,7 +204,7 @@
                 url: "loginout.do",
                 success: function (data) {
                     var numstr = data;
-                    console.log("注册结果"+numstr)
+                    console.log("注册结果" + numstr)
                     if (numstr = 1) {
                         window.location = "index.do"
 
@@ -203,7 +233,8 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>
+                    ,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
@@ -257,34 +288,36 @@
 
 
             <!-- Start Sign In Form -->
-            <form id="form1" action="updateuserinfo.do" method="post" enctype="multipart/form-data" class="fh5co-form animate-box"
+            <form id="form1" action="updateuserinfo.do" method="post" enctype="multipart/form-data"
+                  class="fh5co-form animate-box"
                   data-animate-effect="fadeIn">
                 <h2>个人信息</h2>
                 <div id="headimg">
                     <div class="btn btn-success fileinput-button" id="head">
-                        <span id="span1">点击上传头像</span> <img src="<c:url value="${userinfo.hphoto}"/>" id="showimg" /> <input
-                            type="file" id="book-file" onchange="show1(this)" name="pictureFile"/>
+                        <span id="span1">点击上传头像</span> <img src="<c:url value="${userinfo.hphoto}"/>" id="showimg"/>
+                        <input
+                                type="file" id="book-file" onchange="show1(this)" name="pictureFile"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="name" class="sr-only">用户名</label>
                     <p>用户名：</p><input type="text" class="form-control" id="name" placeholder="输入用户名" autocomplete="off"
-                           name="username" onblur="checkname()" value="${userinfo.username}">
+                                      name="username" onblur="checkname()" value="${userinfo.username}">
                     <span id="namemsg" style="color:red"></span>
                 </div>
                 <div class="form-group">
-                    <p>邮  箱：</p><label for="email" class="sr-only">Email</label>
+                    <p>邮 箱：</p><label for="email" class="sr-only">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="输入Email" autocomplete="off"
                            name="email" value="${userinfo.email}">
                 </div>
                 <div class="form-group">
-                    <p>电  话：</p><label for="name" class="sr-only">tel</label>
+                    <p>电 话：</p><label for="name" class="sr-only">tel</label>
                     <input type="text" class="form-control" id="tel" placeholder="输入手机号" autocomplete="off"
                            name="tel" value="${userinfo.tel}">
                 </div>
                 <div class="form-group">
-                    <p>生  日：</p><label for="email" class="sr-only">tel</label>
+                    <p>生 日：</p><label for="email" class="sr-only">tel</label>
                     <input type="date" class="form-control" id="birth" placeholder="选择生日" autocomplete="off"
                            name="birth" value="${userinfo.birth}">
                 </div>
@@ -300,15 +333,61 @@
                 <%--<span id="passmsg" style="color:red"></span>--%>
                 <%--</div>--%>
                 <div class="form-group">
-                    <p><a href="login.jsp">查看个人订单</a></p>
+                    <p><a href="orderbyuid.do">查看个人订单</a></p>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="修改" class="btn btn-primary">
                 </div>
             </form>
             <!-- END Sign In Form -->
+            <div id="light" class="white_content">
+                <h2>个人订单</h2>
+                <div class="commod-cont-wrap">
+                    <div class="commod-cont w1200 layui-clear">
+                        <div class="left-nav">
+                            <div class="list-box" style="width: 80%;">
+                                <c:forEach items="${orders}" var="o">
+                                    <c:set var="oid" value="${o.oid}"/>
+                                    <div class="order" style="margin: 10px">
+                                        <table style="width: 100%;align-content: center;background: #1E9FFF;color: white;font-size: 16px">
+                                            <tr><td>id:${o.oid}</td><td>订单生成日期：${o.createtime}</td><td>订单总金额：${o.payment}</td></tr>
+                                        </table>
+                                        <div>
+                                            <table style="width: 100%;align-content: center;background: #47d1d1;color: white;font-size: 14px">
+                                                <c:forEach items="${orderinfos[oid]}" var="oi">
+                                                    <tr><td>商品</td><td></td><td>单价</td><td>数量</td><td>总价</td></tr>
+                                                    <tr><td>${oi.photo}</td><td>${oi.cname}</td><td>${oi.cprice}</td><td>${oi.cnum}</td><td>${oi.cnum *oi.cprice}</td></tr>
+                                                </c:forEach>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+
+
+                                <div class="order" style="margin: 10px">
+                                    <table style="width: 100%;align-content: center;background: #1E9FFF">
+                                        <tr><td>1</td><td>2</td><td>3</td></tr>
+                                    </table>
+                                    <div>
+                                        <table style="width: 100%;align-content: center;background: #47d1d1">
+                                            <tr><td>图</td><td>商品名</td><td>单价</td><td>数量</td><td>总价</td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
+
     </div>
+
 
     <%--context end--%>
 
@@ -343,6 +422,11 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    if (${orders != null}){
+        document.getElementById('light').style.display='block'
+    }
+</script>
 
 <!-- jQuery -->
 <script src="<c:url value="/resources/static/js/jquery.min.js"/>"></script>

@@ -16,8 +16,6 @@
     <script type="text/javascript" src="<c:url value="/resources/layui/layui.js"/>"></script>
 
 
-
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -31,7 +29,7 @@
                 url: "loginout.do",
                 success: function (data) {
                     var numstr = data;
-                    console.log("注册结果"+numstr)
+                    console.log("注册结果" + numstr)
                     if (numstr = 1) {
                         window.location = "index.do"
 
@@ -42,7 +40,6 @@
                 }
             });
         }
-
 
 
     </script>
@@ -62,13 +59,11 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
             </c:choose>
-
-
 
 
         </div>
@@ -255,7 +250,6 @@
 <script src="<c:url value="/resources/static/js/jquery.waypoints.min.js"/>"></script>
 <!-- Main JS -->
 <script src="<c:url value="/resources/static/js/main.js"/>"></script>
-
 
 
 <script type="text/javascript">

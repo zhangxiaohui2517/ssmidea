@@ -66,7 +66,6 @@
     </script>
 
 
-
     <style>
         .black_overlay {
             display: none;
@@ -105,7 +104,7 @@
                 url: "loginout.do",
                 success: function (data) {
                     var numstr = data;
-                    console.log("注册结果"+numstr)
+                    console.log("注册结果" + numstr)
                     if (numstr = 1) {
                         window.location = "index.do"
 
@@ -134,7 +133,8 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>
+                    ,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
@@ -291,7 +291,7 @@
                         <span class="sum">189.00</span>
                     </li>
                     <li class="th th-op">
-                        <span class="dele-btn" >删除</span>
+                        <span class="dele-btn">删除</span>
                     </li>
                 </ul>
             </div>
@@ -352,7 +352,10 @@
 
             </div>
             <div class="th Settlement">
-                <button class="layui-btn" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">结算</button>
+                <button class="layui-btn"
+                        onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+                    结算
+                </button>
             </div>
             <div class="th total">
                 <p>应付：<span class="pieces-total">${allprice}</span></p>
@@ -366,12 +369,15 @@
     <h2>确认结算金额</h2>
     <h2>&nbsp;&nbsp;</h2>
     <input type="text" name="allprice1" id="allprice1" required lay-verify="required" autocomplete="off"
-           class="layui-input" value="${allprice}"  readonly="readonly">
+           class="layui-input" value="${allprice}" readonly="readonly">
     <h2 id="tishi" style="color: red">&nbsp;&nbsp;</h2>
     <input type="text" name="allprice2" id="allprice2" required lay-verify="required" autocomplete="off"
            class="layui-input" placeholder="${allprice}">
     <h2>&nbsp;&nbsp;</h2>
-    <button class="layui-btn" onclick="jiesuan()">付款</button>&nbsp;&nbsp;<button class="layui-btn" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">取消</button>
+    <button class="layui-btn" onclick="jiesuan()">付款</button>&nbsp;&nbsp;<button class="layui-btn"
+                                                                                 onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+    取消
+</button>
 
 </div>
 <div id="fade" class="black_overlay"></div>
@@ -379,9 +385,9 @@
 <script type="text/javascript">
 
     function jiesuan() {
-        var allprice1 =document.getElementById("allprice1").value;
-        var allprice2 =document.getElementById("allprice2").value;
-        if (parseFloat(allprice1) !=parseFloat(allprice2)){
+        var allprice1 = document.getElementById("allprice1").value;
+        var allprice2 = document.getElementById("allprice2").value;
+        if (parseFloat(allprice1) != parseFloat(allprice2)) {
             document.getElementById("tishi").innerHTML = "请输入正确结算金额"
         } else {
             var url = "addorder.do?payment=" + allprice2
