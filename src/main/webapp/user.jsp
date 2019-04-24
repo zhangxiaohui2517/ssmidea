@@ -54,7 +54,6 @@
             border: 10px solid beige;
             background-color: white;
             z-index: 1002;
-            overflow: auto;
             overflow-y: auto
         }
 
@@ -346,35 +345,35 @@
                     <div class="commod-cont w1200 layui-clear">
                         <div class="left-nav">
                             <div class="list-box" style="width: 80%;">
-                                <c:forEach items="${orders}" var="o">
-                                    <c:set var="oid" value="${o.oid}"/>
-                                    <div class="order" style="margin: 10px">
-                                        <table style="width: 100%;align-content: center;background: #1E9FFF;color: white;font-size: 16px">
-                                            <tr><td>id:${o.oid}</td><td>订单生成日期：${o.createtime}</td><td>订单总金额：${o.payment}</td></tr>
-                                        </table>
-                                        <div>
-                                            <table style="width: 100%;align-content: center;background: #47d1d1;color: white;font-size: 14px">
-                                                <c:forEach items="${orderinfos[oid]}" var="oi">
-                                                    <tr><td>商品</td><td></td><td>单价</td><td>数量</td><td>总价</td></tr>
-                                                    <tr><td>${oi.photo}</td><td>${oi.cname}</td><td>${oi.cprice}</td><td>${oi.cnum}</td><td>${oi.cnum *oi.cprice}</td></tr>
-                                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${orders != null}">
+                                        <c:forEach items="${orders}" var="o">
 
-                                            </table>
-                                        </div>
-                                    </div>
-                                </c:forEach>
+                                            <c:set var="oid" value="${o.oid}"/>
+                                            <div class="order" style="margin: 10px;width: 780px">
+                                                <table style="width: 100%;align-content: center;background: gray;color: white;font-size: 16px">
+                                                    <tr><td>id:${o.oid}</td><td>订单生成日期：${o.createtime}</td><td>订单总金额：${o.payment}</td></tr>
+                                                </table>
+                                                <div>
+                                                    <table style="width: 100%;align-content: center;background: black;color: white;font-size: 14px;padding: 2px">
+                                                        <tr><td>商品</td><td></td><td>单价</td><td>数量</td><td>总价</td></tr>
+                                                        <c:forEach items="${orderinfos[oid]}" var="oi">
+
+                                                            <tr><td><img style="width: 100px;height: 112px"
+                                                                         src="<c:url value="/resources/static/img/${oi.photo}"/>"></td><td>${oi.cname}</td><td>${oi.cprice}</td><td>${oi.cnum}</td><td>${oi.cnum *oi.cprice}</td></tr>
+                                                        </c:forEach>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h3>无购物记录</h3>
+                                    </c:otherwise>
+                                </c:choose>
 
 
-                                <div class="order" style="margin: 10px">
-                                    <table style="width: 100%;align-content: center;background: #1E9FFF">
-                                        <tr><td>1</td><td>2</td><td>3</td></tr>
-                                    </table>
-                                    <div>
-                                        <table style="width: 100%;align-content: center;background: #47d1d1">
-                                            <tr><td>图</td><td>商品名</td><td>单价</td><td>数量</td><td>总价</td></tr>
-                                        </table>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>

@@ -24,7 +24,7 @@
                 url: "loginout.do",
                 success: function (data) {
                     var numstr = data;
-                    console.log("注册结果"+numstr)
+                    console.log("注册结果" + numstr)
                     if (numstr = 1) {
                         window.location = "index.do"
 
@@ -53,7 +53,8 @@
                     <div class="login"><a href="login.jsp">登录</a></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>,
+                    <div class="login"><a href="user.jsp">${userinfo.username}</a></div>
+                    ,
                     <div class="login"><a href="javascript:loginout();">注销</a></div>
                     <div class="sp-cart"><a href="shopcart.do?id=${userinfo.id}">购物车</a></div>
                 </c:otherwise>
@@ -120,34 +121,13 @@
 
             <div class="right-cont-wrap">
                 <div class="right-cont">
-                    <div class="sort layui-clear">
-                        <a class="active" href="javascript:;" event='volume'>销量</a>
-                        <a href="javascript:;" event='price'>价格</a>
-                        <a href="javascript:;" event='newprod'>新品</a>
-                        <a href="javascript:;" event='collection'>收藏</a>
-                    </div>
-                    <div class="prod-number">
-                        <span>200个</span>
-                    </div>
                     <div class="cont-list layui-clear" id="list-cont">
-                        <div class="item">
-                            <div class="img">
-                                <a href="javascript:;"><img
-                                        src="<c:url value="/resources/static/img/paging_img2.jpg"/>"></a>
-                            </div>
-                            <div class="text">
-                                <p class="title">森系小清新四件套</p>
-                                <p class="price">
-                                    <span class="pri">￥200</span>
-                                    <span class="nub">1266付款</span>
-                                </p>
-                            </div>
-                        </div>
-                        <c:forEach items="${commoditylist}"  var="b">
+
+                        <c:forEach items="${commoditylist}" var="b">
                             <div class="item">
                                 <div class="img">
-                                    <a href="javascript:;"><img style="width: 160px;height: 180px"
-                                                                src="<c:url value="/resources/static/img/${b.image}"/>"></a>
+                                    <a href="selectgoodbyid.do?cid=${b.cid}"><img style="width: 160px;height: 180px"
+                                                                                   src="<c:url value="/resources/static/img/${b.image}"/>"></a>
                                 </div>
                                 <div class="text">
                                     <p class="title">${b.cname}</p>

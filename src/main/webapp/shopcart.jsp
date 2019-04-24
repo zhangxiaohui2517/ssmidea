@@ -223,77 +223,51 @@
         <div class="OrderList">
             <div class="order-content" id="list-cont">
 
-                <c:forEach items="${shopcartlist}" var="s">
-                    <ul class="item-content layui-clear">
-                        <li class="th th-chk">
-                            <div class="select-all">
-                                <div class="cart-checkbox">
+                <c:choose>
+                    <c:when test="${shopcartlist != null}">
+                        <c:forEach items="${shopcartlist}" var="s">
+                            <ul class="item-content layui-clear">
+                                <li class="th th-chk">
+                                    <div class="select-all">
+                                        <div class="cart-checkbox">
 
-                                </div>
-                            </div>
-                        </li>
-                        <li class="th th-item">
-                            <div class="item-cont">
-                                <a href="javascript:;"><img src="../res/static/img/paging_img1.jpg" alt=""></a>
-                                <div class="text">
-                                    <div class="title">${s.cname}</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="th th-price">
-                            <span class="th-su">￥${s.cprice}</span>
-                        </li>
-                        <li class="th th-amount">
-                            <div class="box-btn layui-clear">
-                                <div class="layui-btn" onclick="chuangeNum('1',${s.id},${s.cnum})">-</div>
-                                <input int id="${s.id}" class="Quantity-input" type="" name="" value="${s.cnum}"
-                                       disabled="disabled">
-                                <div class="layui-btn" onclick="chuangeNum('2',${s.id},${s.cnum})">+</div>
-                            </div>
-                        </li>
-                        <li class="th th-sum">
-                            <span>￥${s.cprice * s.cnum}</span>
-                        </li>
-                        <li class="th th-op">
-                            <span onclick="deletebyid(${s.id})">删除</span>
-                        </li>
-                    </ul>
-                </c:forEach>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="th th-item">
+                                    <div class="item-cont">
+                                        <a href="javascript:;"><img src="../res/static/img/paging_img1.jpg" alt=""></a>
+                                        <div class="text">
+                                            <div class="title">${s.cname}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="th th-price">
+                                    <span class="th-su">￥${s.cprice}</span>
+                                </li>
+                                <li class="th th-amount">
+                                    <div class="box-btn layui-clear">
+                                        <div class="layui-btn" onclick="chuangeNum('1',${s.id},${s.cnum})">-</div>
+                                        <input int id="${s.id}" class="Quantity-input" type="" name="" value="${s.cnum}"
+                                               disabled="disabled">
+                                        <div class="layui-btn" onclick="chuangeNum('2',${s.id},${s.cnum})">+</div>
+                                    </div>
+                                </li>
+                                <li class="th th-sum">
+                                    <span>￥${s.cprice * s.cnum}</span>
+                                </li>
+                                <li class="th th-op">
+                                    <span onclick="deletebyid(${s.id})">删除</span>
+                                </li>
+                            </ul>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h1>购物车无商品！</h1>
+                    </c:otherwise>
+                </c:choose>
 
-                <ul class="item-content layui-clear">
-                    <li class="th th-chk">
-                        <div class="select-all">
-                            <div class="cart-checkbox">
 
-                            </div>
-                        </div>
-                    </li>
-                    <li class="th th-item">
-                        <div class="item-cont">
-                            <a href="javascript:;"><img src="../res/static/img/paging_img1.jpg" alt=""></a>
-                            <div class="text">
-                                <div class="title">宝宝T恤棉质小衫</div>
-                                <p><span>粉色</span> <span>130</span>cm</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="th th-price">
-                        <span class="th-su">189.00</span>
-                    </li>
-                    <li class="th th-amount">
-                        <div class="box-btn layui-clear">
-                            <div class="less layui-btn">-</div>
-                            <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                            <div class="add layui-btn">+</div>
-                        </div>
-                    </li>
-                    <li class="th th-sum">
-                        <span class="sum">189.00</span>
-                    </li>
-                    <li class="th th-op">
-                        <span class="dele-btn">删除</span>
-                    </li>
-                </ul>
             </div>
         </div>
 

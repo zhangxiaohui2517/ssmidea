@@ -197,7 +197,7 @@
             <div class="product-item-box layui-clear">
                 <c:forEach items="${biqianglist}" var="b" begin="8">
                     <div class="list-item">
-                        <a href="javascript:;"><img style="width: 160px;height: 180px"
+                        <a href="selectgoodbyid.do?cid=${b.cid}"><img style="width: 160px;height: 180px"
                                                     src="<c:url value="/resources/static/img/${b.image}"/>"></a>
                         <p>${b.cname}</p>
                         <span>￥${b.price}</span>
