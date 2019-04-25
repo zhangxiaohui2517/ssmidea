@@ -7,35 +7,59 @@
 	</select>
 
     <select id="findCommodityByName" resultType="com.xmetc.entity.Commodity">
-        			select * from t_commodity where cname like "%"#{title}"%"
+        			select * from t_commodity where cname like "%"#{title}"%" limit #{arg0},#{arg1}
 	</select>
 
     <select id="findCommodityAll" resultType="com.xmetc.entity.Commodity">
 		select * from t_commodity
 	</select>
 
+    <select id="getCommodityAll1" resultType="com.xmetc.entity.Commodity">
+		select * from t_commodity limit #{arg0},#{arg1}
+	</select>
     <select id="findCommodityByPid" resultType="com.xmetc.entity.Commodity">
-        			select * from t_commodity where xpid=#{pid}
+        			select * from t_commodity where xpid=#{xpid} limit #{arg0},#{arg1}
 	</select>
 
+    <select id="findNewCont" resultType="java.lang.Integer">
+            select COUNT(*) from t_commodity where 1=1
+        <!--<if test="xpid!=null">-->
+            <!--and xpid =#{xpid},-->
+        <!--</if>-->
+        <!--<if test="cname!=null">-->
+            <!--and cname =#{cname},-->
+        <!--</if>-->
+    </select>
 
+    <select id="findNewContByname" resultType="java.lang.Integer">
+        select COUNT(*) from t_commodity where 1=1
+        <if test="cname!=null">
+        and cname like "%"#{cname}"%"
+        </if>
+    </select>
+    <select id="findNewContByid" resultType="java.lang.Integer">
+        select COUNT(*) from t_commodity where 1=1
+        <if test="xpid!=null">
+        and xpid = #{xpid}
+        </if>
+    </select>
 
     <update id="updateCommodity" parameterType="com.xmetc.entity.Commodity">
         update t_commodity
         <set>
-            <if test ="xpid!=null">
+            <if test="xpid!=null">
                 xpid =#{xpid},
             </if>
-            <if test ="name!=null">
-                name =#{name},
+            <if test="name!=null">
+                cname =#{cname},
             </if>
-            <if test ="image!=null">
+            <if test="image!=null">
                 image =#{image},
             </if>
-            <if test ="detail!=null">
+            <if test="detail!=null">
                 detail =#{detail},
             </if>
-            <if test ="price!=null">
+            <if test="price!=null">
                 price =#{price},
             </if>
         </set>

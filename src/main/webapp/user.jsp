@@ -249,7 +249,7 @@
     <div class="headerLayout w1200">
         <div class="headerCon">
             <h1 class="mallLogo">
-                <a href="#" title="母婴商城">
+                <a href="index.do" title="母婴商城">
                     <img src="<c:url value="/resources/static/img/logo.png"/>">
                 </a>
             </h1>
@@ -274,7 +274,7 @@
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
                     <a href="allcommodity.do" class="active">所有商品</a>
-                    <a href="buytoday.html">今日团购</a>
+
                     <a href="information.html">母婴资讯</a>
                     <a href="about.html">关于我们</a>
                 </div>
@@ -352,15 +352,32 @@
                                             <c:set var="oid" value="${o.oid}"/>
                                             <div class="order" style="margin: 10px;width: 780px">
                                                 <table style="width: 100%;align-content: center;background: gray;color: white;font-size: 16px">
-                                                    <tr><td>id:${o.oid}</td><td>订单生成日期：${o.createtime}</td><td>订单总金额：${o.payment}</td></tr>
+                                                    <tr>
+                                                        <td>id:${o.oid}</td>
+                                                        <td>订单生成日期：${o.createtime}</td>
+                                                        <td>订单总金额：${o.payment}</td>
+                                                    </tr>
                                                 </table>
                                                 <div>
                                                     <table style="width: 100%;align-content: center;background: black;color: white;font-size: 14px;padding: 2px">
-                                                        <tr><td>商品</td><td></td><td>单价</td><td>数量</td><td>总价</td></tr>
+                                                        <tr>
+                                                            <td>商品</td>
+                                                            <td></td>
+                                                            <td>单价</td>
+                                                            <td>数量</td>
+                                                            <td>总价</td>
+                                                        </tr>
                                                         <c:forEach items="${orderinfos[oid]}" var="oi">
 
-                                                            <tr><td><img style="width: 100px;height: 112px"
-                                                                         src="<c:url value="/resources/static/img/${oi.photo}"/>"></td><td>${oi.cname}</td><td>${oi.cprice}</td><td>${oi.cnum}</td><td>${oi.cnum *oi.cprice}</td></tr>
+                                                            <tr>
+                                                                <td><img style="width: 100px;height: 112px"
+                                                                         src="<c:url value="/resources/static/img/${oi.photo}"/>">
+                                                                </td>
+                                                                <td>${oi.cname}</td>
+                                                                <td>${oi.cprice}</td>
+                                                                <td>${oi.cnum}</td>
+                                                                <td>${oi.cnum *oi.cprice}</td>
+                                                            </tr>
                                                         </c:forEach>
 
                                                     </table>
@@ -422,8 +439,8 @@
 </div>
 
 <script type="text/javascript">
-    if (${orders != null}){
-        document.getElementById('light').style.display='block'
+    if (${orders != null}) {
+        document.getElementById('light').style.display = 'block'
     }
 </script>
 

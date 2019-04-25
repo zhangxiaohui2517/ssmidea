@@ -42,7 +42,7 @@
     <div class="site-nav w1200">
         <p class="sn-back-home">
             <i class="layui-icon layui-icon-home"></i>
-            <a href="#">首页</a>
+            <a href="index.do">首页</a>
         </p>
         <div class="sn-quick-menu">
             <c:choose>
@@ -64,7 +64,7 @@
     <div class="headerLayout w1200">
         <div class="headerCon">
             <h1 class="mallLogo">
-                <a href="#" title="母婴商城">
+                <a href="index.do" title="母婴商城">
                     <img src="<c:url value="/resources/static/img/logo.png"/>">
                 </a>
             </h1>
@@ -88,8 +88,8 @@
         <div class="inner-cont0">
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
-                    <a href="commodity.html" class="active">所有商品</a>
-                    <a href="buytoday.html">今日团购</a>
+                    <a href="allcommodity.do" class="active">所有商品</a>
+
                     <a href="information.html">母婴资讯</a>
                     <a href="about.html">关于我们</a>
                 </div>
@@ -98,9 +98,9 @@
     </div>
     <div class="data-cont-wrap w1200">
         <div class="crumb">
-            <a href="javascript:;">首页</a>
+            <a href="index.do">首页</a>
             <span>></span>
-            <a href="javascript:;">所有商品</a>
+            <a href="allcommodity.do">所有商品</a>
             <span>></span>
             <a href="javascript:;">产品详情</a>
         </div>

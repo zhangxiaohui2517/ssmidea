@@ -34,8 +34,8 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<Commodity> getCommodityByName(String title) {
-        return commodityDAO.findCommodityByName(title);
+    public List<Commodity> getCommodityByName(int i,int j,String title) {
+        return commodityDAO.findCommodityByName(i,j,title);
     }
 
     @Override
@@ -44,7 +44,27 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<Commodity> findCommodityByPid(int pid) {
-        return commodityDAO.findCommodityByPid(pid);
+    public List<Commodity> findCommodityByPid(int i,int j,int pid) {
+        return commodityDAO.findCommodityByPid(i,j,pid);
+    }
+
+    @Override
+    public int findNewCont(int pid, String cname) {
+        return commodityDAO.findNewCont(pid,cname);
+    }
+
+    @Override
+    public List<Commodity> getCommodityAll1(int i, int j) {
+        return commodityDAO.getCommodityAll1(i,j);
+    }
+
+    @Override
+    public int findNewContByname(String cname) {
+        return commodityDAO.findNewContByname(cname);
+    }
+
+    @Override
+    public int findNewContByid(int pid) {
+        return commodityDAO.findNewContByid(pid);
     }
 }
