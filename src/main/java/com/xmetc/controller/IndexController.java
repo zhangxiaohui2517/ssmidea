@@ -33,7 +33,6 @@ public class IndexController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("index");
 
-        //商品类别展示
         List<Productcate> plist = productcateService.getProAll();
         Map<Integer,List<Xpro>> pmap = new HashMap<>();
         for (Productcate p : plist) {

@@ -7,17 +7,28 @@ public class Shopcart {
     private int cnum;
     private double cprice;
     private String cname;
+    private String image;
 
     public Shopcart() {
     }
 
-    public Shopcart(int id, int uid, int cid, int cnum, double cprice, String cname) {
+
+    public Shopcart(int id, int uid, int cid, int cnum, double cprice, String cname, String image) {
         this.id = id;
         this.uid = uid;
         this.cid = cid;
         this.cnum = cnum;
         this.cprice = cprice;
         this.cname = cname;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getId() {

@@ -23,4 +23,5 @@ public class OrderInfoImpl implements OrderInfoService {
     public List<OrderInfoUid> findOrderInfoAll(int oid) {
         return orderInfoDAO.findOrderInfoAll(oid);
     }
+
 }

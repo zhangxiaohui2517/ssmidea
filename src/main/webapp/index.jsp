@@ -160,7 +160,7 @@
                                     <div class="item">
                                         <a href="selectgoodbyid.do?cid=${b.cid}"><img
                                                 src="<c:url value="/resources/static/img/${b.image}"/>"></a>
-                                        <div class="title">${b.cname}</div>
+                                        <div style="width:190px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" class="title">${b.cname}</div>
                                         <div class="price">
                                             <span>￥${b.price}</span>
                                             <del>￥${b.price+20.00}</del>
@@ -174,7 +174,7 @@
                                     <div class="item">
                                         <a href="selectgoodbyid.do?cid=${b.cid}"><img
                                                 src="<c:url value="/resources/static/img/${b.image}"/>"></a>
-                                        <div class="title">${b.cname}</div>
+                                        <div style="width:190px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"  class="title">${b.cname}</div>
                                         <div class="price">
                                             <span>￥${b.price}</span>
                                             <del>￥${b.price+20.00}</del>
@@ -197,9 +197,9 @@
             <div class="product-item-box layui-clear">
                 <c:forEach items="${biqianglist}" var="b" begin="8">
                     <div class="list-item">
-                        <a href="selectgoodbyid.do?cid=${b.cid}"><img style="width: 160px;height: 180px"
+                        <a href="selectgoodbyid.do?cid=${b.cid}"><img style="width: 160px;height: 140px"
                                                     src="<c:url value="/resources/static/img/${b.image}"/>"></a>
-                        <p>${b.cname}</p>
+                        <div>${b.cname}</div>
                         <span>￥${b.price}</span>
                     </div>
 

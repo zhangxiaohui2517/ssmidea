@@ -88,9 +88,9 @@ public class UserController {
     //删除用户
     @RequestMapping("deleteuser")
     @ResponseBody
-    public String DeleteUser(@RequestBody int id) {
-        int i = userService.doDeleteUserById(id);
-        return i!=0?"success":"error";
+    public int DeleteUser(@Param("id") String id) {
+        int i = userService.doDeleteUserById(Integer.parseInt(id));
+        return i;
     }
 
     //修改用户 修改个人信息
@@ -200,7 +200,6 @@ public class UserController {
 */
     @RequestMapping("updateuserinfo")
     public String update(HttpServletRequest request, User user, MultipartFile pictureFile,HttpSession session) throws IOException {
-
         if (pictureFile != null) {//使用UUID给图片重命名，并去掉四个“-”
             String name = UUID.randomUUID().toString().replaceAll("-", "");
             //获取文件的扩展名
@@ -215,14 +214,41 @@ public class UserController {
             user.setId(user1.getId());
             user.setHphoto("upload/" + name + "." + ext);
         }
-
         int i = userService.doUpdateUserById(user);
         System.out.println(i);
         session.setAttribute("userinfo",user);
         return "user";
+    }
 
+
+    @RequestMapping("userinfolist")
+    public ModelAndView userinfolist() {
+        ModelAndView mav = new ModelAndView();
+        List<User> userinfolist = userService.getUserAll();
+        mav.setViewName("admin");
+        mav.addObject("userinfolist", userinfolist);
+
+        return mav;
 
     }
 
+    //登录管理员密码检测
+    @RequestMapping(value = "adminlogin", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView adminlogin(@Param("username") String username, @Param("password") String password) {
+
+        ModelAndView mav = null;
+        System.out.println("username = [" + username + "], password = [" + password + "]");
+
+        if ("admin".equals(username) && "admin".equals(password)){
+            mav = new ModelAndView("redirect:userinfolist.do");
+            return mav;
+        }else {
+            mav = new ModelAndView("adminlogin");
+            mav.addObject("rs","用户名或密码错误");
+            return mav;
+        }
+
+    }
 
 }

@@ -9,6 +9,9 @@
         			select * from t_xpro where xpname=#{arg0}
 	</select>
 
+    <select id="getXproName" resultType="String">
+        			select xpname from t_xpro where xpid=#{xpid}
+	</select>
     <select id="findXproAll" resultType="com.xmetc.entity.Xpro">
 		select * from t_xpro
 	</select>
@@ -31,6 +34,8 @@
     <delete id="deleteXpro" parameterType="com.xmetc.entity.Xpro">
 		delete from t_xpro where xpid=#{xpid}
 	</delete>
+
+
 
 
 </mapper>

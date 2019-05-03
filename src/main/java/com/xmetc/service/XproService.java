@@ -11,4 +11,5 @@ public interface XproService {
     int doDeleteXproById(int xpid);
     List<Xpro> getXproByPid(int pid);
     Xpro getXproByName(String pname);
+    String getXproName(int xpid);
 }

@@ -9,7 +9,8 @@
             t.cid "cid",
             t.cnum "cnum",
             a.price "cprice",
-            a.cname "cname"
+            a.cname "cname",
+            a.image "image"
 
         FROM
             t_shopcart t,t_commodity a

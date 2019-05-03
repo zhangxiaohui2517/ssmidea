@@ -74,7 +74,9 @@ public class Commodity {
                 "cid=" + cid +
                 ", xpid=" + xpid +
                 ", cname='" + cname + '\'' +
+                ", image='" + image + '\'' +
                 ", detail='" + detail + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

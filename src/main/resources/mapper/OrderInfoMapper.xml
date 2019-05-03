@@ -10,17 +10,17 @@
     <select id="findOrderInfoAll" resultType="com.xmetc.entity.OrderInfoUid">
       SELECT
 	        t.oiid "id",
-            0 "uid",
+            s.uid "uid",
             t.cid "cid",
             t.cnum "cnum",
             a.price "cprice",
             a.cname "cname",
             a.image "photo"
         FROM
-            t_orderinfo t,t_commodity a
+            t_orderinfo t,t_commodity a,t_order s
         WHERE t.cid = a.cid
-        and oid=#{oid}
+        and t.oid = s.oid
+        and t.oid=#{oid}
 	</select>
-
 
 </mapper>

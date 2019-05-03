@@ -13,5 +13,6 @@ public interface XproDAO {
     List<Xpro> findXproByPid(int pid);
     Xpro findXproByName(String xpname);
     List<Xpro> findXproAll();
+    String getXproName(int xpid);
 
 }

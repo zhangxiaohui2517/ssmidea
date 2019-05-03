@@ -4,6 +4,7 @@ import com.xmetc.entity.*;
 import com.xmetc.service.OrderInfoService;
 import com.xmetc.service.OrderService;
 import com.xmetc.service.ShopcartService;
+import com.xmetc.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class OrderController {
     private ShopcartService shopcartService;
     @Autowired
     private OrderInfoService orderInfoService;
+    @Autowired
+    private UserService userService;
 
     //查找所有订单列表
     @RequestMapping("allorder")
@@ -133,6 +136,52 @@ public class OrderController {
         mav.addObject("orders",orders);
         mav.addObject("orderinfos",orderinfos);
         mav.setViewName("user");
+        return mav;
+    }
+//
+    //查找用户订单
+    //查找所有商品列表
+    @RequestMapping("orderinfoadmin")
+    @ResponseBody
+    public ModelAndView orderinfoadmin(){
+        ModelAndView mav = new ModelAndView();
+        List<Order> orders = orderService.getOrderAll();
+        Map<Integer,List<OrderInfoUid>> orderinfos = new HashMap<>();
+        Map<Integer,String> orderusername = new HashMap<>();
+        for (Order o: orders) {
+            List<OrderInfoUid> orderInfoUid = orderInfoService.findOrderInfoAll(o.getOid());
+            orderinfos.put(o.getOid(),orderInfoUid);
+
+            User user = userService.getUserById(o.getUid());
+            orderusername.put(o.getOid(),user.getUsername());
+        }
+        mav.addObject("orders",orders);
+        mav.addObject("orderinfos",orderinfos);
+        mav.addObject("orderusername",orderusername);
+        mav.setViewName("adminorder");
+        return mav;
+    }
+
+    //查找用户订单
+    @RequestMapping("selectorderbyname")
+    @ResponseBody
+    public ModelAndView orderinfoadmin(@Param("username") String username){
+        ModelAndView mav = new ModelAndView();
+        User user1 = userService.getUserByName(username);
+        List<Order> orders = orderService.getOrderByUid(user1.getId());
+        Map<Integer,List<OrderInfoUid>> orderinfos = new HashMap<>();
+        Map<Integer,String> orderusername = new HashMap<>();
+        for (Order o: orders) {
+            List<OrderInfoUid> orderInfoUid = orderInfoService.findOrderInfoAll(o.getOid());
+            orderinfos.put(o.getOid(),orderInfoUid);
+            User user = userService.getUserById(o.getUid());
+            orderusername.put(o.getOid(),user.getUsername());
+        }
+        mav.addObject("orders",orders);
+        mav.addObject("orderinfos",orderinfos);
+        mav.addObject("orderusername",orderusername);
+        mav.setViewName("adminorder");
+        mav.addObject("selectusername",username);
         return mav;
     }
 

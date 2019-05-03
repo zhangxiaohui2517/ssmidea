@@ -359,7 +359,7 @@
                                                     </tr>
                                                 </table>
                                                 <div>
-                                                    <table style="width: 100%;align-content: center;background: black;color: white;font-size: 14px;padding: 2px">
+                                                    <table style="border: 1px;width: 100%;align-content: center;background: #c0e2ef;color: white;font-size: 14px;padding: 2px">
                                                         <tr>
                                                             <td>商品</td>
                                                             <td></td>
@@ -373,7 +373,7 @@
                                                                 <td><img style="width: 100px;height: 112px"
                                                                          src="<c:url value="/resources/static/img/${oi.photo}"/>">
                                                                 </td>
-                                                                <td>${oi.cname}</td>
+                                                                <td width="350px">${oi.cname}</td>
                                                                 <td>${oi.cprice}</td>
                                                                 <td>${oi.cnum}</td>
                                                                 <td>${oi.cnum *oi.cprice}</td>

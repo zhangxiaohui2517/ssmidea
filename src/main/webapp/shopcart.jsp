@@ -172,7 +172,7 @@
         <div class="inner-cont0">
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
-                    <a href="commodity.html" class="active">所有商品</a>
+                    <a href="allcommodity.do" class="active">所有商品</a>
 
                     <a href="information.html">母婴资讯</a>
                     <a href="about.html">关于我们</a>
@@ -221,7 +221,7 @@
             </div>
         </div>
         <div class="OrderList">
-            <div class="order-content" id="list-cont">
+            <div class="order-content" id="list">
 
                 <c:choose>
                     <c:when test="${shopcartlist != null}">
@@ -236,7 +236,7 @@
                                 </li>
                                 <li class="th th-item">
                                     <div class="item-cont">
-                                        <a href="javascript:;"><img src="../res/static/img/paging_img1.jpg" alt=""></a>
+                                        <a href="javascript:;"><img src="<c:url value="/resources/static/img/${s.image}"/>" alt=""></a>
                                         <div class="text">
                                             <div class="title">${s.cname}</div>
                                         </div>

@@ -43,4 +43,9 @@ public class XproServiceImpl implements XproService {
     public Xpro getXproByName(String pname) {
         return xproDAO.findXproByName(pname);
     }
+
+    @Override
+    public String getXproName(int xpid) {
+        return xproDAO.getXproName(xpid);
+    }
 }
